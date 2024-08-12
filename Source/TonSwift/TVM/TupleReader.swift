@@ -51,7 +51,13 @@ public class TupleReader {
     }
     
     public func readNumber() throws -> UInt64 {
-        return UInt64(try readBigNumber())
+        let popedBigNumber = try readBigNumber()
+        
+        guard popedBigNumber >= 0 else {
+            throw TonError.custom("Wrong number")
+        }
+        
+        return UInt64(popedBigNumber)
     }
     
     public func readNumberOpt() throws -> UInt64? {
